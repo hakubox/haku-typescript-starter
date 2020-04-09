@@ -1,7 +1,11 @@
 import "./assets/basic.scss";
 import { printMe } from "./flow";
+import axios from "axios";
 
-console.log(process.env);
+axios.post('/api', {
+    a: '1'
+});
+
 
 if (module['hot']) {
     module['hot'].accept("./flow.ts", function () {

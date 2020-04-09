@@ -32,9 +32,7 @@ module.exports = {
         ],
     },
     plugins: [
-        new Dotenv({
-            path: './.env'
-        }),
+        new Dotenv(),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new CopyWebpackPlugin([
@@ -48,12 +46,26 @@ module.exports = {
             }
         ]),
     ],
+    externals: {
+        //jquery: 'jQuery',
+        // lodash : {
+        //     commonjs: "lodash",
+        //     amd: "lodash",
+        //     root: "_"
+        // }
+    },
     resolve: {
-        extensions: [ '.tsx', '.ts', '.js' ]
+        extensions: [ '.tsx', '.ts', '.js', '.jsx' ],
+        alias: {
+            "@": path.resolve(__dirname, "src")
+        },
     },
     output: {
         path: path.resolve(__dirname, "../dist"),
         filename: "[name].[hash:8].bundle.js",
         library: 'hakuWorkflowDesign',
     },
+    performance: {
+        maxEntrypointSize: 2000000
+    }
 };
