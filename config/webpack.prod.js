@@ -36,7 +36,7 @@ module.exports = merge(common, {
         }),
         new webpack.DllReferencePlugin({
             context: process.cwd(),
-            manifest: require("../public/vendor/vendor-manifest.json")
+            manifest: require("../src/vendor/vendor-manifest.json")
         }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('production')

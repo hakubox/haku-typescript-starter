@@ -42,6 +42,9 @@ module.exports = {
                 from: "./public",
                 to: "../dist",
                 ignore: ['.*']
+            }, {
+                from: "./src/vendor/vendor.dll.js",
+                to: "../dist"
             }
         ]),
     ],
