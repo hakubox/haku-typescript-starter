@@ -5,11 +5,11 @@
 
 当前支持功能：
 
-[x] webpack打包
-[x] 打包资源分析
-[x] TypeScript
-[x] SASS/SCSS
-[x] Jest单元测试
-[ ] Jenkins持续集成
-[ ] Babel
-[ ] ESLint
+- [x] webpack打包
+- [x] 打包资源分析
+- [x] TypeScript
+- [x] SASS/SCSS
+- [x] Jest单元测试
+- [ ] Jenkins持续集成
+- [ ] Babel
+- [ ] ESLint
