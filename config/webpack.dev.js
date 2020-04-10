@@ -1,3 +1,4 @@
+const path = require("path");
 const merge = require("webpack-merge");
 const common = require("./webpack.common.js");
 const webpack = require('webpack');
@@ -9,6 +10,31 @@ module.exports = merge(common, {
     // 配置source map添加方式
     // devtool: "inline-source-map",
     devtool: 'eval-source-map',
+    // 配置模块
+    module: {
+        // 配置规则
+        rules: [
+            {
+                test: /\.tsx?$/i,
+                include: path.resolve(__dirname, "../src"),
+                use: "ts-loader",
+            }, {
+                test: /\.css$/i,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            }, {
+                test: /\.scss$/i,
+                include: path.resolve(__dirname, "../src"),
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ]
+            }
+        ],
+    },
     // 配置运行的node服务器
     devServer: {
         // 基础路径
@@ -23,6 +49,8 @@ module.exports = merge(common, {
         inline: true,
         // 热替换
         hot: true,
+
+        clientLogLevel: 'none'
     },
     // webpack插件
     plugins: [

@@ -19,6 +19,31 @@ module.exports = merge(common, {
     // 配置source map添加方式
     // devtool: '#cheap-module-eval-source-map',
     devtool: 'source-map',
+    // 配置模块
+    module: {
+        // 配置规则
+        rules: [
+            {
+                test: /\.tsx?$/i,
+                include: path.resolve(__dirname, "../src"),
+                use: "ts-loader",
+            }, {
+                test: /\.css$/i,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader'
+                ]
+            }, {
+                test: /\.scss$/i,
+                include: path.resolve(__dirname, "../src"),
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader'
+                ]
+            }
+        ],
+    },
     // 优化配置
     optimization: {
         // 仅含有 runtime 的入口起点包配置：默认
@@ -43,6 +68,13 @@ module.exports = merge(common, {
     },
     // webpack插件
     plugins: [
+        // 导出单个css文件
+        new MiniCssExtractPlugin({
+            // 文件名模板
+            filename: '[name].[hash:8].css',
+            // 分包文件名模板
+            chunkFilename: '[id].[hash:8].css',
+        }),
         // js压缩
         new UglifyJSPlugin({
             sourceMap: true

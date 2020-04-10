@@ -1,6 +1,5 @@
 const path = require("path");
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -10,42 +9,10 @@ module.exports = {
     entry: {
         app: path.resolve(__dirname, "../src/index.ts")
     },
-    // 配置模块
-    module: {
-        // 配置规则
-        rules: [
-            {
-                test: /\.tsx?$/i,
-                include: path.resolve(__dirname, "../src"),
-                use: "ts-loader",
-            }, {
-                test: /\.css$/i,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader'
-                ]
-            }, {
-                test: /\.scss$/i,
-                include: path.resolve(__dirname, "../src"),
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'sass-loader'
-                ]
-            }
-        ],
-    },
     // webpack插件
     plugins: [
         // 读取.env 文件的配置到process.env中
         new Dotenv(),
-        // 导出单个css文件
-        new MiniCssExtractPlugin({
-            // 文件名模板
-            filename: '[name].[hash:8].css',
-            // 分包文件名模板
-            chunkFilename: '[id].[hash:8].css',
-        }),
         // 热加载时直接返回更新文件名
         new webpack.NamedModulesPlugin(),
         // 模块热替换插件
