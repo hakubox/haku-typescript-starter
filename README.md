@@ -10,6 +10,6 @@
 - [x] TypeScript
 - [x] SASS/SCSS
 - [x] Jest单元测试
+- [x] Babel
 - [ ] Jenkins持续集成
-- [ ] Babel
 - [ ] ESLint

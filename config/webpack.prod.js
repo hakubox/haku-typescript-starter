@@ -1,3 +1,4 @@
+const path = require("path");
 const merge = require('webpack-merge');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -26,7 +27,16 @@ module.exports = merge(common, {
             {
                 test: /\.tsx?$/i,
                 include: path.resolve(__dirname, "../src"),
-                use: "ts-loader",
+                use: [
+                    'babel-loader',
+                    'ts-loader',
+                ],
+            }, {
+                test: /\.jsx?$/i,
+                include: path.resolve(__dirname, "../src"),
+                use: [
+                    'babel-loader'
+                ],
             }, {
                 test: /\.css$/i,
                 use: [
