@@ -3,13 +3,16 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const webpack = require('webpack');
 
 module.exports = {
+    // 入口点配置
     entry: {
+        // 用于额外引入的第三方模块
         vendor: [
             'axios',
         ]
     },
+    // 输出配置
     output: {
-        path: path.join(__dirname, 'public/vendor'),
+        path: path.join(__dirname, '../src/vendor'),
         filename: '[name].dll.js',
         library: '[name]_[hash]' // vendor.dll.js中暴露出的全局变量名
     },
@@ -24,13 +27,14 @@ module.exports = {
         }),
         // manifest.json 描述动态链接库包含了哪些内容
         new webpack.DllPlugin({
-            path: path.join(__dirname, 'public/vendor', '[name]-manifest.json'),
+            path: path.join(__dirname, '../src/vendor', '[name]-manifest.json'),
             // 保持与 output.library 中名称一致
             name: '[name]_[hash]',
+            // 上下文：node执行的文件夹
             context: process.cwd()
         })
     ],
     optimization: {
-        minimize: false
+        minimize: true
     }
 };

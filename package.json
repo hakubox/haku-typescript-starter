@@ -12,7 +12,7 @@
         "build": "webpack --progress --config ./config/webpack.prod.js",
         "report": "webpack --progress --report --config ./config/webpack.prod.js",
         "dll": "webpack -p --progress --config ./config/webpack.dll.conf.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "jest"
     },
     "author": "",
     "license": "ISC",
@@ -20,15 +20,18 @@
         "axios": "^0.19.2"
     },
     "devDependencies": {
+        "@types/jest": "^25.2.1",
         "clean-webpack-plugin": "^3.0.0",
         "copy-webpack-plugin": "^5.1.1",
         "css-loader": "^3.5.1",
         "dotenv-webpack": "^1.7.0",
         "html-webpack-plugin": "^4.0.4",
+        "jest": "^25.3.0",
         "mini-css-extract-plugin": "^0.9.0",
         "sass": "^1.26.3",
         "sass-loader": "^8.0.2",
         "style-loader": "^1.1.3",
+        "ts-jest": "^25.3.1",
         "ts-loader": "^6.2.2",
         "typescript": "^3.8.3",
         "uglifyjs-webpack-plugin": "^2.2.0",

@@ -1,31 +1,34 @@
 const merge = require("webpack-merge");
 const common = require("./webpack.common.js");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+// 开发环境配置
 module.exports = merge(common, {
+    // 运行环境：开发环境
     mode: 'development',
+    // 配置source map添加方式
     // devtool: "inline-source-map",
     devtool: 'eval-source-map',
+    // 配置运行的node服务器
     devServer: {
+        // 基础路径
         contentBase: "./dist",
+        // 端口
         port: 3000,
+        // 显示进度
         progress: true,
+        // 静态路径
         contentBase: './public',
+        // 内联模式：一段处理实时重载的脚本被插入到你的包(bundle)中，并且构建消息将会出现在浏览器控制台
         inline: true,
+        // 热替换
         hot: true,
     },
+    // webpack插件
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: '[name].css',
-            chunkFilename: '[id].css',
-        }),
+        // 允许在编译时配置的全局常量
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify('dev')
-        }),
-        new HtmlWebpackPlugin({
-            template: "./index.html"
         })
     ],
 });

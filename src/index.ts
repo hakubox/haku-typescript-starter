@@ -1,5 +1,5 @@
 import "./assets/basic.scss";
-import { printMe } from "./flow";
+import { printMe } from "@/flow";
 import axios from "axios";
 
 axios.post('/api', {
