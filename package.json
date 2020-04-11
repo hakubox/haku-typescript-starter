@@ -8,7 +8,7 @@
         "*.scss"
     ],
     "scripts": {
-        "dev": "webpack-dev-server --open --config ./config/webpack.dev.js --report",
+        "dev": "webpack-dev-server --open --config ./config/webpack.dev.js",
         "build": "webpack --progress --config ./config/webpack.prod.js",
         "report": "webpack --progress --report --config ./config/webpack.prod.js",
         "dll": "webpack -p --progress --config ./config/webpack.dll.conf.js",
@@ -17,10 +17,16 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@babel/polyfill": "^7.8.7",
         "axios": "^0.19.2",
-        "babel-loader": "^8.1.0"
+        "babel-loader": "^8.1.0",
+        "core-js": "^3.6.5"
     },
+    "browserslist": [
+        "last 2 version",
+        "> 1%",
+        "maintained node versions",
+        "not dead"
+    ],
     "devDependencies": {
         "@babel/cli": "^7.8.4",
         "@babel/core": "^7.9.0",
