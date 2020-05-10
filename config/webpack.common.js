@@ -17,6 +17,10 @@ module.exports = {
         new webpack.NamedModulesPlugin(),
         // 模块热替换插件
         new webpack.HotModuleReplacementPlugin(),
+        // 自动全局引用
+        new webpack.ProvidePlugin({
+            axios: 'axios',
+        }),
         // 复制插件
         new CopyWebpackPlugin([
             {
