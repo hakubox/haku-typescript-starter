@@ -11,15 +11,19 @@
         "dev": "webpack-dev-server --open --config ./config/webpack.dev.js",
         "build": "webpack --progress --config ./config/webpack.prod.js",
         "report": "webpack --progress --report --config ./config/webpack.prod.js",
+        "lint": "eslint src --fix --ext .js,.jsx,.ts,.tsx",
         "dll": "webpack -p --progress --config ./config/webpack.dll.conf.js",
         "test": "jest"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@typescript-eslint/eslint-plugin": "^3.4.0",
+        "@typescript-eslint/parser": "^3.4.0",
         "axios": "^0.19.2",
         "babel-loader": "^8.1.0",
-        "core-js": "^3.6.5"
+        "core-js": "^3.6.5",
+        "eslint": "^7.3.1"
     },
     "browserslist": [
         "last 2 version",
@@ -36,21 +40,28 @@
         "copy-webpack-plugin": "^5.1.1",
         "css-loader": "^3.5.1",
         "dotenv-webpack": "^1.7.0",
+        "eslint-plugin-typescript": "^0.14.0",
         "html-webpack-plugin": "^4.0.4",
+        "husky": "^4.2.5",
         "jest": "^25.3.0",
         "mini-css-extract-plugin": "^0.9.0",
         "sass": "^1.26.3",
         "sass-loader": "^8.0.2",
+        "stats-webpack-plugin": "^0.7.0",
         "style-loader": "^1.1.3",
         "ts-jest": "^25.3.1",
         "ts-loader": "^6.2.2",
         "typescript": "^3.8.3",
-        "uglifyjs-webpack-plugin": "^2.2.0",
         "webpack": "^4.42.1",
         "webpack-bundle-analyzer": "^3.6.1",
         "webpack-cli": "^3.3.11",
         "webpack-dev-server": "^3.10.3",
         "webpack-manifest-plugin": "^2.2.0",
         "webpack-merge": "^4.2.2"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run lint"
+        }
     }
 }

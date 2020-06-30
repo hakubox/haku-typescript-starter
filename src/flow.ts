@@ -1,5 +1,4 @@
-
-export function printMe() {
+export function printMe(): void {
     console.log('正在更新flow.ts');
 }
 

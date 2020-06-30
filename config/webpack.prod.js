@@ -1,12 +1,12 @@
-const path = require("path");
+const path = require('path');
 const merge = require('webpack-merge');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const common = require('./webpack.common.js');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const StatsPlugin = require('stats-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 // 参数包含--report则会打开资源分布图
 if (process.argv.includes('--report')) {
@@ -26,33 +26,24 @@ module.exports = merge(common, {
         rules: [
             {
                 test: /\.tsx?$/i,
-                include: path.resolve(__dirname, "../src"),
-                use: [
-                    'babel-loader',
-                    'ts-loader',
-                ],
-            }, {
+                include: path.resolve(__dirname, '../src'),
+                use: ['babel-loader', 'ts-loader']
+            },
+            {
                 test: /\.jsx?$/i,
-                include: path.resolve(__dirname, "../src"),
-                use: [
-                    'babel-loader'
-                ],
-            }, {
+                include: path.resolve(__dirname, '../src'),
+                use: ['babel-loader']
+            },
+            {
                 test: /\.css$/i,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader'
-                ]
-            }, {
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
+            },
+            {
                 test: /\.scss$/i,
-                include: path.resolve(__dirname, "../src"),
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'sass-loader'
-                ]
+                include: path.resolve(__dirname, '../src'),
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
             }
-        ],
+        ]
     },
     // 优化配置
     optimization: {
@@ -83,16 +74,12 @@ module.exports = merge(common, {
             // 文件名模板
             filename: '[name].[hash:8].css',
             // 分包文件名模板
-            chunkFilename: '[id].[hash:8].css',
-        }),
-        // js压缩
-        new UglifyJSPlugin({
-            sourceMap: true
+            chunkFilename: '[id].[hash:8].css'
         }),
         // 排除不进行依赖的公共库（使用前需单独打包）
         new webpack.DllReferencePlugin({
             context: process.cwd(),
-            manifest: require("../src/vendor/vendor-manifest.json")
+            manifest: require('../src/vendor/vendor-manifest.json')
         }),
         // 允许在编译时配置的全局常量
         new webpack.DefinePlugin({
@@ -101,14 +88,25 @@ module.exports = merge(common, {
         // 生成html文件的配置
         new HtmlWebpackPlugin({
             // 配置模板
-            template: "./index.html",
+            template: './index.html',
             // 引入文件
             files: {
                 css: [],
-                js: ["vendor.dll.js"],
+                js: ['vendor.dll.js']
             }
         }),
         // 用于清理构建(dist)文件夹
-        new CleanWebpackPlugin()
-    ],
+        new CleanWebpackPlugin(),
+        // 查看项目结构：http://alexkuz.github.io/webpack-chart/
+        new StatsPlugin('stats.json', {
+            chunkModules: true,
+            chunks: true,
+            assets: false,
+            modules: true,
+            children: true,
+            chunksSort: true,
+            assetsSort: true,
+            exclude: []
+        })
+    ]
 });

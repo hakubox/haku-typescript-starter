@@ -1,6 +1,6 @@
-const path = require("path");
-const merge = require("webpack-merge");
-const common = require("./webpack.common.js");
+const path = require('path');
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
 const webpack = require('webpack');
 
 // 开发环境配置
@@ -16,58 +16,56 @@ module.exports = merge(common, {
         rules: [
             {
                 test: /\.tsx?$/i,
-                include: path.resolve(__dirname, "../src"),
+                include: path.resolve(__dirname, '../src'),
                 use: [
                     {
                         loader: 'babel-loader',
                         options: {
                             presets: [
                                 [
-                                    '@babel/preset-env', {
-                                        "targets": "last 3 Chrome versions"
+                                    '@babel/preset-env',
+                                    {
+                                        targets: 'last 3 Chrome versions'
                                     }
                                 ]
                             ]
                         }
                     },
-                    "ts-loader"
+                    'ts-loader'
                 ]
-            }, {
+            },
+            {
                 test: /\.m?jsx?$/i,
-                include: path.resolve(__dirname, "../src"),
+                include: path.resolve(__dirname, '../src'),
                 use: {
                     loader: 'babel-loader',
                     options: {
                         presets: [
                             [
-                                '@babel/preset-env', {
-                                    "targets": "last 3 Chrome versions"
+                                '@babel/preset-env',
+                                {
+                                    targets: 'last 3 Chrome versions'
                                 }
                             ]
                         ]
                     }
-                },
-            }, {
+                }
+            },
+            {
                 test: /\.css$/i,
-                use: [
-                    'style-loader',
-                    'css-loader'
-                ]
-            }, {
+                use: ['style-loader', 'css-loader']
+            },
+            {
                 test: /\.scss$/i,
-                include: path.resolve(__dirname, "../src"),
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader'
-                ]
+                include: path.resolve(__dirname, '../src'),
+                use: ['style-loader', 'css-loader', 'sass-loader']
             }
-        ],
+        ]
     },
     // 配置运行的node服务器
     devServer: {
-        // 基础路径
-        contentBase: "./dist",
+        // 使用gzip压缩
+        compress: true,
         // 端口
         port: 3001,
         // 显示进度：不显示
@@ -79,7 +77,14 @@ module.exports = merge(common, {
         // 热替换
         hot: true,
 
-        clientLogLevel: 'none'
+        clientLogLevel: 'none',
+        // 代理 https://webpack.js.org/configuration/dev-server/#devserverproxy
+        proxy: {
+            // '/api': {
+            //     target: 'https://other-server.example.com',
+            //     secure: false
+            // }
+        }
     },
     // webpack插件
     plugins: [
@@ -101,6 +106,6 @@ module.exports = merge(common, {
         // 是否输出模块信息
         modules: false,
         // 是否输出文字颜色
-        colors: true,
+        colors: true
     }
 });
